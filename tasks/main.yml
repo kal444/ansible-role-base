@@ -11,13 +11,13 @@
   file: src=/usr/share/zoneinfo/{{ base_timezone }} dest=/etc/localtime state=link force=yes
 
 - name: configure timezone - timezone
-  template: src=etc/timezone.j2 dest=/etc/timezone
+  template: src=etc/timezone.j2 dest=/etc/timezone owner=root group=root mode=0644
 
 - name: update and upgrade all packages (Debian)
   apt: upgrade=yes install_recommends=no update_cache=yes cache_valid_time=3600
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' and base_upgrade_packages
 
 - name: update and upgrade all packages (RedHat)
   yum: name=* state=latest
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat' and base_upgrade_packages
 
