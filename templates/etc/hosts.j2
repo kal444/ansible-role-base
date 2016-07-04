@@ -15,4 +15,3 @@ ff02::3 ip6-allhosts
 {# ipv6 version of the address is a guess - not sure how to select the correct scope #}
 # real IPs
 {{ hostvars[inventory_hostname]['ansible_eth0']['ipv6'][0]['address'] }} {{ inventory_hostname }} {{ inventory_hostname_short }}
-
