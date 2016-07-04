@@ -12,3 +12,12 @@
 
 - name: configure timezone - timezone
   template: src=etc/timezone.j2 dest=/etc/timezone
+
+- name: update and upgrade all packages (Debian)
+  apt: upgrade=yes install_recommends=no update_cache=yes cache_valid_time=3600
+  when: ansible_os_family == 'Debian'
+
+- name: update and upgrade all packages (RedHat)
+  yum: name=* state=latest
+  when: ansible_os_family == 'RedHat'
+
