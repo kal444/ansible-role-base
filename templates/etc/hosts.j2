@@ -2,7 +2,7 @@
 127.0.0.1 localhost localhost.localdomain
 
 # real IPs
-{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }} {{ inventory_hostname }} {{ inventory_hostname_short }}
+{{ hostvars[inventory_hostname]['ansible_all_ipv4_addresses'][0] }} {{ inventory_hostname }} {{ inventory_hostname_short }}
 
 # The following lines are desirable for IPv6 capable hosts
 ::1 ip6-localhost ip6-loopback
@@ -14,4 +14,4 @@ ff02::3 ip6-allhosts
 
 {# ipv6 version of the address is a guess - not sure how to select the correct scope #}
 # real IPs
-{{ hostvars[inventory_hostname]['ansible_eth0']['ipv6'][0]['address'] }} {{ inventory_hostname }} {{ inventory_hostname_short }}
+{{ hostvars[inventory_hostname]['ansible_all_ipv6_addresses'][0] }} {{ inventory_hostname }} {{ inventory_hostname_short }}
