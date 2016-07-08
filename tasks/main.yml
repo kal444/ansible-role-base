@@ -2,13 +2,13 @@
 # tasks file for ansible-role-base
 
 - name: setup hostname based on ansible name
-  hostname: name={{ inventory_hostname_short }}
+  hostname: name="{{ inventory_hostname_short }}"
 
 - name: update /etc/hosts based on ansible discovered IPs
   template: src=etc/hosts.j2 dest=/etc/hosts owner=root group=root mode=0644
 
 - name: configure timezone - localtime
-  file: src=/usr/share/zoneinfo/{{ base_timezone }} dest=/etc/localtime state=link force=yes
+  file: src=/usr/share/zoneinfo/"{{ base_timezone }}" dest=/etc/localtime state=link force=yes
 
 - name: configure timezone - timezone
   template: src=etc/timezone.j2 dest=/etc/timezone owner=root group=root mode=0644
