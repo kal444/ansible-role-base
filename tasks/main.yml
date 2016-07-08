@@ -8,7 +8,7 @@
   template: src=etc/hosts.j2 dest=/etc/hosts owner=root group=root mode=0644
 
 - name: configure timezone - localtime
-  file: src=/usr/share/zoneinfo/"{{ base_timezone }}" dest=/etc/localtime state=link force=yes
+  file: src="/usr/share/zoneinfo/{{ base_timezone }}" dest=/etc/localtime state=link force=yes
 
 - name: configure timezone - timezone
   template: src=etc/timezone.j2 dest=/etc/timezone owner=root group=root mode=0644
