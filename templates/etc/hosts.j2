@@ -2,7 +2,7 @@
 127.0.0.1 localhost localhost.localdomain
 
 # real IPs
-{% for ipv4 in hostvars[inventory_hostname]['ansible_all_ipv4_addresses'] %}
+{% for ipv4 in hostvars[inventory_hostname]['ansible_all_ipv4_addresses']|sort %}
 {{ ipv4 }} {{ inventory_hostname_short }} {{ inventory_hostname }}
 {% endfor %}
 
@@ -16,6 +16,6 @@ ff02::3 ip6-allhosts
 
 {# ipv6 version of the address is a guess - not sure how to select the correct scope #}
 # real IPs
-{% for ipv6 in hostvars[inventory_hostname]['ansible_all_ipv6_addresses'] %}
+{% for ipv6 in hostvars[inventory_hostname]['ansible_all_ipv6_addresses']|sort %}
 {{ ipv6 }} {{ inventory_hostname_short }} {{ inventory_hostname }}
 {% endfor %}
