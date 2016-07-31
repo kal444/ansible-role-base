@@ -20,3 +20,7 @@
 - name: update and upgrade all packages (RedHat).
   yum: name=* state=latest
   when: ansible_os_family == 'RedHat' and base_upgrade_packages
+
+- name: add EPEL release repo for CentOS
+  yum: name=epel-release state=present
+  when: ansible_distribution == 'CentOS'
