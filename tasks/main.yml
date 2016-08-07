@@ -12,6 +12,7 @@
 
 - name: configure timezone - timezone.
   template: src=etc/timezone.j2 dest=/etc/timezone owner=root group=root mode=0644
+  when: ansible_os_family == 'Debian'
 
 - name: update and upgrade all packages (Debian).
   apt: upgrade=yes install_recommends=no update_cache=yes cache_valid_time=3600
