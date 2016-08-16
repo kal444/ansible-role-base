@@ -5,4 +5,4 @@ base_upgrade_packages: true
 
 base_locale_language: en
 base_locale_territory: US
-base_locale_charset: UTF8
+base_locale_charset: UTF-8
