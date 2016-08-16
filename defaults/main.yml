@@ -2,3 +2,7 @@
 # defaults file for ansible-role-base
 base_timezone: US/Central
 base_upgrade_packages: true
+
+base_locale_language: en
+base_locale_territory: US
+base_locale_charset: UTF8
