@@ -1,0 +1,15 @@
+---
+- block:
+  - name: Ensure locale and language packs are installed
+    apt: name={{ item }}state=present
+    with_items:
+      - locales
+      - language-pack-{{ base_locale_language }}-base
+      - language-pack-{{ base_locale_language }}
+
+  - name: generate locale files
+    command: locale-gen {{ base_locale_language }}_{{ base_locale_territory }}.{{ base_locale_charset }}
+
+  - name: update default locale file
+    command: update-locale LC_ALL={{ base_locale_language }}_{{ base_locale_territory }}.{{ base_locale_charset }} LANG={{ base_locale_language }}_{{ base_locale_territory }}.{{ base_locale_charset }}
+  when: ansible_os_family == 'Debian'
