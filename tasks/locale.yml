@@ -4,8 +4,13 @@
     apt: name={{ item }} state=present
     with_items:
       - locales
+
+  - name: Ensure language packs are installed (Ubuntu)
+    apt: name={{ item }} state=present
+    with_items:
       - language-pack-{{ base_locale_language }}-base
       - language-pack-{{ base_locale_language }}
+    when: ansible_distribution == 'Ubuntu'
 
   - name: generate locale files
     command: locale-gen {{ base_locale_language }}_{{ base_locale_territory }}.{{ base_locale_charset }}
