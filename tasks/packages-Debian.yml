@@ -1,0 +1,9 @@
+---
+
+- name: update and upgrade all packages (Debian).
+  apt:
+    upgrade: safe
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: "3600"
+  when: base_upgrade_packages

@@ -1,29 +1,35 @@
 ---
-# tasks file for ansible-role-base
 
 - name: setup hostname based on ansible name.
-  hostname: name="{{ inventory_hostname_short }}"
+  hostname:
+    name: "{{ inventory_hostname_short }}"
 
 - name: update /etc/hosts based on ansible discovered IPs.
-  template: src=etc/hosts.j2 dest=/etc/hosts owner=root group=root mode=0644
+  template:
+    src: etc/hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
 
 - name: configure timezone - localtime.
-  file: src="/usr/share/zoneinfo/{{ base_timezone }}" dest=/etc/localtime state=link force=yes
+  file:
+    src: /usr/share/zoneinfo/{{ base_timezone }}
+    dest: /etc/localtime
+    state: link
+    force: yes
 
 - name: configure timezone - timezone.
-  template: src=etc/timezone.j2 dest=/etc/timezone owner=root group=root mode=0644
-  when: ansible_os_family == 'Debian'
+  template:
+    src: etc/timezone.j2
+    dest: /etc/timezone
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - ansible_os_family == 'Debian'
 
-- name: update and upgrade all packages (Debian).
-  apt: upgrade=yes install_recommends=no update_cache=yes cache_valid_time=3600
-  when: ansible_os_family == 'Debian' and base_upgrade_packages
-
-- name: update and upgrade all packages (RedHat).
-  yum: name=* state=latest
-  when: ansible_os_family == 'RedHat' and base_upgrade_packages
-
-- name: add EPEL release repo for CentOS
-  yum: name=epel-release state=present
-  when: ansible_distribution == 'CentOS'
-
-- include: locale.yml
+- include_tasks: packages-{{ ansible_os_family }}.yml
+- include_tasks: locale-{{ ansible_os_family }}.yml
+  when:
+    - ansible_os_family == 'Debian'

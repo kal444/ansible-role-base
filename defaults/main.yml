@@ -1,5 +1,4 @@
 ---
-# defaults file for ansible-role-base
 base_timezone: US/Central
 base_upgrade_packages: true
 

@@ -1,0 +1,12 @@
+---
+
+- name: update and upgrade all packages (RedHat).
+  package:
+    name: "*"
+    state: latest
+  when: base_upgrade_packages
+
+- name: add EPEL release repo for RedHat
+  package:
+    name: epel-release
+    state: present
