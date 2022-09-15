@@ -17,6 +17,12 @@
       - language-pack-{{ base_locale_language }}
   when: ansible_distribution == 'Ubuntu'
 
+- name: Ensure en_US UTF8 combination is selected and enabled
+  lineinfile:
+    dest: /etc/locale.gen
+    regexp: en_US.UTF-8
+    line: 'en_US.UTF-8 UTF-8'
+
 - name: generate locale files
   command: locale-gen {{ base_locale_language }}_{{ base_locale_territory }}.{{ base_locale_charset }}
 
